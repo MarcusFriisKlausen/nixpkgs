@@ -16,18 +16,18 @@
 }:
 stdenv.mkDerivation rec {
   pname = "grist-core";
-  version = "1.5.1";
+  version = "1.7.7";
 
   src = fetchFromGitHub {
     owner = "gristlabs";
     repo = "grist-core";
     tag = "v${version}";
-    hash = "sha256-eNmxOAjYxqjxjNdKvIpvW84/CCjFVl8DX1GZPSAtP80=";
+    hash = "sha256-dcoVTCeuWpQfkCP+VnpYVA6QBT1or3tYcTN/KyS5UrA=";
   };
 
   offlineCache = fetchYarnDeps {
     yarnLock = "${src}/yarn.lock";
-    hash = "sha256-Q441bmW9A4vfaX2Nano/5mynajjSbNGR6JXLxDBgsww=";
+    hash = "sha256-fgjWul0qzFQYNnmc5QUH/89SrJG/jpv8T+SFop2h4+Q=";
   };
 
   nativeBuildInputs = with nodePackages; [
@@ -110,6 +110,9 @@ stdenv.mkDerivation rec {
     mkdir -p "$out/libexec" "$out/bin"
 
     cp -r {_build,node_modules,plugins,sandbox,static,bower_components} "$out/libexec"
+
+    # For removing dangling symlink
+    find $out/libexec/bower_components -type l ! -exec test -e {} \; -delete
 
     makeWrapper ${lib.getExe nodejs} $out/bin/grist-core \
       --add-flags "$out/libexec/_build/stubs/app/server/server.js" \

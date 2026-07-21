@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     node-gyp-build
     node-pre-gyp
     makeWrapper
-  ];
+  ] ++ [ python3 ];
 
   propagatedBuildInputs = with python3.pkgs; [
     astroid

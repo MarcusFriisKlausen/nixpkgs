@@ -3,6 +3,7 @@
   stdenv,
   fetchFromGitHub,
   python3,
+  python311,
   fetchYarnDeps,
   yarn,
   nodejs,
@@ -38,7 +39,7 @@ stdenv.mkDerivation rec {
     node-gyp-build
     node-pre-gyp
     makeWrapper
-  ] ++ [ python3 ];
+  ] ++ [ python311 ];
 
   propagatedBuildInputs = with python3.pkgs; [
     astroid

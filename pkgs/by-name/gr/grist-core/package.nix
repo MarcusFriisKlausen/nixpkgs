@@ -9,7 +9,7 @@
   nodejs,
   prefetch-yarn-deps,
   fixup-yarn-lock,
-  nodePackages,
+  node-gyp-build,
   node-pre-gyp,
   makeWrapper,
   gitUpdater,
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-fgjWul0qzFQYNnmc5QUH/89SrJG/jpv8T+SFop2h4+Q=";
   };
 
-  nativeBuildInputs = with nodePackages; [
+  nativeBuildInputs = [
     yarn
     nodejs
     prefetch-yarn-deps
@@ -47,7 +47,6 @@ stdenv.mkDerivation rec {
     chardet
     et-xmlfile
     executing
-    friendly-traceback
     iso8601
     lazy-object-proxy
     openpyxl
